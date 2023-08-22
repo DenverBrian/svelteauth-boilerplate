@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { get } from 'svelte/store';
-	import { userStore } from '../../stores';
+	import { addToast, userStore } from '../../stores';
 	import { loginData } from '../../stores';
 	import type { User, userLogin } from '../../types';
+	import LoginInput from '$lib/LoginInput.svelte';
+	import { goto } from '$app/navigation';
 	console.log('hiyaa from LOGIN');
 	const user0 = get(userStore);
+	console.log('user datas', user0);
+	const userLogin = get(loginData);
+	console.log('LOGIN DATA', userLogin);
 	const handleLogin = (e: Event) => {
 		const formInputs = new FormData(e.target as HTMLFormElement);
 		const email = formInputs.get('email') as string;
@@ -19,50 +24,40 @@
 			return users.map((user) => user.email).find((email) => email === userEmail);
 		};
 
+		console.log(checkEmail(userInputs.email));
 		if (checkEmail(userInputs.email) !== undefined) {
-			console.log('email matched!');
+			if (users.find((user) => user.password === userInputs.password)) {
+				loginData.update(() => users.find((user) => user.password === userInputs.password));
+				console.log('updated login data', get(loginData));
+				goto('/dashboard', { replaceState: true });
+				return;
+			}
+			addToast({
+				text: 'wronggggg',
+				dismissible: true,
+				duration: 3000,
+				type: 'warning'
+			});
+
+			console.log('invalid account');
+
+			return;
 		}
-		// function emails(user: User) {
-		// 	return user.email;
-		// }
-		// const userEmails = users.map(emails);
-
-		// const userEmails2: string[] = [];
-
-		// for (let i = 0; i < users.length; i++) {
-		// 	userEmails2.push(users[i].email);
-		// }
-
-		// const userEmails3 = get(userStore)
-		// 	.map((user) => user.email)
-		// 	.find((userEmail) => userEmail === email);
-
-		// if (
-		// 	get(userStore)
-		// 		.map((user) => user.email)
-		// 		.find((userEmail) => userEmail === email) !== undefined
-		// ) {
-		// 	console.log('valid email');
-		// }
-
-		// console.log(userEmails3);
-		// console.log('useremails', userEmails);
-		// console.log('useremails2', userEmails2);
-		// console.log('useremail3', userEmails3);
-		// console.log(
-		// 	'userstore',
-		// 	$userStore.map((user) => user.email)
-
-		// );
+		addToast({
+			text: 'Invalid Input',
+			dismissible: true,
+			duration: 3000,
+			type: 'error'
+		});
 	};
 </script>
 
 <h1>LOGIN</h1>
 <form on:submit|preventDefault={handleLogin}>
-	<input type="text" placeholder="Input Email" name="email" />
-	<input type="password" placeholder="Input Password" name="password" />
+	<LoginInput />
 	<button type="submit">Login</button>
 </form>
+
 {#each $userStore as user}
 	<p>{user.email}</p>
 {/each}

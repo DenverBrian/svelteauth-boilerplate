@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+
 
 export type User = {
 	email: string;
@@ -8,10 +8,9 @@ export type User = {
 	role: 'ADMIN' | 'USER' | 'GUEST';
 };
 
+export type userRegister = Omit<User, 'role'>;
+export type userLogin = Pick<User, 'email' | 'password'>;
 
-
-export type userRegister = Omit<User,'role'>;
-export type userLogin = Pick<User,'email'|'password'>
 export type Toast = {
 	id: number;
 	text: string;
@@ -19,3 +18,5 @@ export type Toast = {
 	duration: number;
 	type: 'success' | 'error' | 'warning' | 'info';
 };
+
+export type ToastCreate = Omit<Toast,'id'>;

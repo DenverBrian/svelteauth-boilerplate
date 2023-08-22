@@ -3,6 +3,7 @@
 	import UserList from '$lib/UserList.svelte';
 	import { userStore } from '../../stores';
 	import { get } from 'svelte/store';
+	import LoginInput from '$lib/LoginInput.svelte';
 	console.log('heyaaa from REGISTER');
 	// let Users: User[] = [];
 	const users = get(userStore);
@@ -28,8 +29,7 @@
 
 <form on:submit|preventDefault={handleSubmit}>
 	<h1>REGISTER</h1>
-	<input type="text" placeholder="Input Email" name="email" />
-	<input type="password" placeholder="Input Password" name="password" />
+	<LoginInput />
 	<input type="password" placeholder="Confirm Password" />
 	<input type="text" placeholder="Input First Name" name="firstMame" />
 	<input type="text" placeholder="Input Last Name" name="lastName" />
