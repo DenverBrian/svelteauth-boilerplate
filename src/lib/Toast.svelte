@@ -26,7 +26,7 @@
 	</div>
 
 	{#if dismissible}
-		<button class="close" on:click={() => dispatch('dismiss')}>
+		<button class="close" on:click={() => dispatch('xdd')}>
 			<CloseIcon width="0.8em" />
 		</button>
 	{/if}

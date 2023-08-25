@@ -1,16 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { addToast, loginData } from '../../stores';
+	import { loginData, showToast } from '$lib/stores';
 	import { get } from 'svelte/store';
 	const currentUser = get(loginData);
-	addToast({
-		text: 'Succesfully logged in',
-		dismissible: true,
-		duration: 3000,
-		type: 'success'
-	});
+
 	const logOut = () => {
 		loginData.set(undefined);
+		showToast('Logged Out Success', true, 'success');
 		goto('/login', { replaceState: true });
 	};
 </script>

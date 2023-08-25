@@ -1,5 +1,8 @@
-
-
+import { userStore } from "./stores";
+export type genericMessage = {
+	text: string;
+	status: boolean;	
+};
 export type User = {
 	email: string;
 	password: string;
@@ -19,4 +22,5 @@ export type Toast = {
 	type: 'success' | 'error' | 'warning' | 'info';
 };
 
-export type ToastCreate = Omit<Toast,'id'>;
+export type ToastCreate = Omit<Toast, 'id'>;
+

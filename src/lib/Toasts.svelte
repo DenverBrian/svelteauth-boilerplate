@@ -6,10 +6,8 @@
 {#if $toasts}
 	<section>
 		{#each $toasts as toast}
-			<Toast
-				type={toast.type}
-				dismissible={toast.dismissible}
-				on:dismiss={() => dismissToast(toast.id)}>{toast.text}</Toast
+			<Toast type={toast.type} dismissible={toast.dismissible} on:xdd={() => dismissToast(toast.id)}
+				>{toast.text}</Toast
 			>
 		{/each}
 	</section>
@@ -20,7 +18,7 @@
 		position: fixed;
 		top: 0;
 		/* left: 0; */
-        right: 0;
+		right: 0;
 		width: 40%;
 		display: flex;
 		margin-top: 1rem;
