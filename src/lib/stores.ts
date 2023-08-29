@@ -1,10 +1,11 @@
 import { goto } from '$app/navigation';
-import type { Toast, ToastCreate, User, genericMessage } from './types';
-
+import type { Toast, ToastCreate, User, UserRegister, genericMessage } from './types';
+import { nanoid } from 'nanoid'
 import { get, writable } from 'svelte/store';
 
 export const userStore = writable<User[]>([
 	{
+		id:nanoid(),
 		email: 'denver.talamayan@gmail.com',
 		password: '123',
 		firstName: 'Denver',
@@ -12,6 +13,7 @@ export const userStore = writable<User[]>([
 		role: 'USER'
 	},
 	{
+		id:nanoid(),
 		email: 'jordan.brian@hotmail.com',
 		password: '123123',
 		firstName: 'jordan',
@@ -59,9 +61,10 @@ export const userCreate = ({
 	password,
 	firstName,
 	lastName,
-	role
-}: User): genericMessage => {
-	userStore.update((users) => [...users, { email, password, firstName, lastName, role }]);
+
+}: UserRegister): genericMessage => {
+	const id = nanoid()
+	userStore.update((users) => [...users, {id, email, password, firstName, lastName, role:'USER'}]);
 	return {
 		status: true,
 		text: 'Registration sucess'

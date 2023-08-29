@@ -3,6 +3,12 @@
 	import { get } from 'svelte/store';
 	import LoginInput from '$lib/LoginInput.svelte';
 	import { goto } from '$app/navigation';
+	import {
+		fethching,
+		generateUser,
+		generateUserWithOptions,
+		magicGenerateUser
+	} from '$lib/utils/userGenerator';
 	console.log('heyaaa from REGISTER');
 	// let Users: User[] = [];
 	// let users = get(userStore);
@@ -35,15 +41,30 @@
 			return;
 		}
 		// userStore.update((users) => [...users, { email, password, firstName, lastName, role: 'USER' }]);
-		let status = userCreate({ email, password, firstName, lastName, role: 'USER' });
+		let status = userCreate({ email, password, firstName, lastName });
 		console.log(status);
 		// goto('/login', { replaceState: true });
 		// showToast(status.text, true, 'success');
 
 		// storeChange();
 	};
+	const generateUserHandler = async () => {
+		// console.log(generateUser());
+		// console.log(generateUserWithOptions());
+		// console.log(generateUserWithOptions({ provider: 'artifex.com', sameDetails: true }));
+		// console.log(magicGenerateUser());
+		// console.log(magicGenerateUser({ provider: 'hotmail.com', sameDetails: true }));
+		// someFunction(true);
+		let randomUser = fethching(`https://dummyjson.com`);
+		// randomUser.then((data) => console.log(data));
+		console.log(await randomUser);
+		// console.log(randomUser.then((data) => console.log(data)));
+
+		// setTimeout(()=>console.log(randomUser.then((data)=>data)),2000);
+	};
 </script>
 
+<button on:click={generateUserHandler}>Genarate Random User</button>
 <form on:submit|preventDefault={handleSubmit}>
 	<h1>REGISTER</h1>
 	<LoginInput />

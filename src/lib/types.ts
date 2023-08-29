@@ -4,6 +4,7 @@ export type genericMessage = {
 	status: boolean;	
 };
 export type User = {
+	id:string;
 	email: string;
 	password: string;
 	firstName: string;
@@ -11,8 +12,8 @@ export type User = {
 	role: 'ADMIN' | 'USER' | 'GUEST';
 };
 
-export type userRegister = Omit<User, 'role'>;
-export type userLogin = Pick<User, 'email' | 'password'>;
+export type UserRegister = Omit<User, 'role'|'id'>;
+export type UserLogin = Pick<User, 'email' | 'password'>;
 
 export type Toast = {
 	id: number;

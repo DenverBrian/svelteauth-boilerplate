@@ -2,7 +2,7 @@
 	import { get } from 'svelte/store';
 	import { addToast, userStore, checkEmail, showToast, currentUserStore } from '$lib/stores';
 	import { loginData } from '$lib/stores';
-	import type { userLogin } from '$lib/types';
+	import type { UserLogin } from '$lib/types';
 	import LoginInput from '$lib/LoginInput.svelte';
 	import { goto } from '$app/navigation';
 	console.log('hiyaa from LOGIN');
@@ -15,7 +15,7 @@
 		const email = formInputs.get('email') as string;
 		const password = formInputs.get('password') as string;
 
-		const userInputs: userLogin = {
+		const userInputs: UserLogin = {
 			email,
 			password
 		};
